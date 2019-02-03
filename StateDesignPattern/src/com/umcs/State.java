@@ -1,5 +1,6 @@
 package com.umcs;
 
 public interface State {
-    void goNext(Context context);
+    void handle(Context context);
+
 }

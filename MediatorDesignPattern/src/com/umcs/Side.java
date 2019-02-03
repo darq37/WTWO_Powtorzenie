@@ -1,4 +1,5 @@
 package com.umcs;
 
-public class Side {
+public interface Side {
+    void bargain();
 }
