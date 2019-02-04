@@ -1,48 +1,23 @@
 package com.umcs;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args){
-        OsobaEventBroker oeb = new OsobaEventBroker();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        cal.add(Calendar.YEAR, -40);
-        Osoba ojciec = new Osoba(1, "Ociec Osoba", cal.getTime(), null, null, null, oeb);
-        Osoba matka = new Osoba(2, "Matka Osoba", cal.getTime(),null, null, null, oeb);
-        cal.add(Calendar.YEAR, 20);
-        Osoba malzonek = new Osoba(3, "Malzonek Osoba", cal.getTime(),null, null, null, oeb);
-        Osoba o = new Osoba(4, "Nasz Człowiek", cal.getTime(), ojciec, matka, null, oeb);
-        o.getOjciec().getDzieci().add(o);
-        o.getMatka().getDzieci().add(o);
-        cal.add(Calendar.YEAR, 19);
-        Osoba dziecko1 = new Osoba(5, "Dziecko Pierwsze", cal.getTime(),o, malzonek, null, oeb);
-        Osoba dziecko2 = new Osoba(6, "Dziecko Drugie", cal.getTime(),o, malzonek, null, oeb);
-        o.getDzieci().add(dziecko1);
-        o.getDzieci().add(dziecko2);
+    public static void main(String[] args) {
+        EventBroker eventBroker = new EventBroker();
+        Obserwator hex = new HexObserver();
+        Obserwator oct = new OctObserver();
+        Obserwator bin = new BinaryObserver();
+        eventBroker.addObserwator(EventType.LICZBA_DODATNIA, hex);
+        eventBroker.addObserwator(EventType.LICZBA_UJEMNA, oct);
+        eventBroker.addObserwator(EventType.LICZBA_UJEMNA, bin);
+        ObserwowanyObiekt obiekt = new ObserwowanyObiekt(eventBroker);
 
-        oeb.addPublisher(o, EventType.NOWE_DZIECKO);
-        oeb.addPublisher(o, EventType.ZMIENIONO_IMIE_NAZWISKO);
-        oeb.addPublisher(o, EventType.ZMIENIONO_DATE_URODZIN);
-
-        oeb.addSubscriber(matka, EventType.ZMIENIONO_DATE_URODZIN);
-        oeb.addSubscriber(ojciec, EventType.ZMIENIONO_IMIE_NAZWISKO);
-        oeb.addSubscriber(matka, EventType.ZMIENIONO_IMIE_NAZWISKO);
-        oeb.addSubscriber(dziecko1, EventType.ZMIENIONO_IMIE_NAZWISKO);
-        oeb.addSubscriber(dziecko2, EventType.ZMIENIONO_IMIE_NAZWISKO);
-        for(Osoba dziecko: o.getDzieci()){
-            oeb.addSubscriber(dziecko, EventType.NOWE_DZIECKO);
+        Scanner sc = new Scanner(System.in);
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Wprowadz liczbe: ");
+            obiekt.setState(sc.nextInt());
         }
-        o.zmienImieNazwisko("Enedue Likefake");
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(new Date());
-        cal2.add(Calendar.YEAR, -21);
-        o.zmienDateUrodzin(cal2.getTime());
-        Osoba dziecko3 = new Osoba(7, "Dziecko Trzecie", new Date(), o, malzonek, null, oeb);
-        o.noweDziecko(dziecko3);
-
-        return;
     }
 }
