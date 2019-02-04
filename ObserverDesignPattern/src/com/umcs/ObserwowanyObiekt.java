@@ -1,32 +1,13 @@
 package com.umcs;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ObserwowanyObiekt implements Obserwowany {
-    protected List<Obserwator> obserwators = new ArrayList<>();
+public class ObserwowanyObiekt {
+    private EventBroker eventBroker;
     private int state;
 
-
-    @Override
-    public void dodajObserwatora(Obserwator obserwator) {
-        obserwators.add(obserwator);
-
+    public ObserwowanyObiekt(EventBroker eventBroker) {
+        this.eventBroker = eventBroker;
     }
 
-    @Override
-    public void usunObserwatora(Obserwator obserwator) {
-        obserwators.remove(obserwator);
-
-    }
-
-    @Override
-    public void powiadomObserwatorow() {
-        for (Obserwator o : obserwators) {
-            o.aktualizuj();
-        }
-
-    }
 
     public int getState() {
         return state;
@@ -34,6 +15,10 @@ public class ObserwowanyObiekt implements Obserwowany {
 
     public void setState(int state) {
         this.state = state;
-        powiadomObserwatorow();
+        eventBroker.notify(
+                new Event(state >= 0
+                        ? EventType.LICZBA_DODATNIA
+                        : EventType.LICZBA_UJEMNA, this.state)
+        );
     }
 }
