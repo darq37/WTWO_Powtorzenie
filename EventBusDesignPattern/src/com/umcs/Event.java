@@ -1,4 +1,5 @@
 package com.umcs;
 
-public interface Event {
+public interface Event<T> {
+    T getData();
 }

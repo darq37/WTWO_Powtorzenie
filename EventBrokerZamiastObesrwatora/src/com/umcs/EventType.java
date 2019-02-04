@@ -1,4 +1,6 @@
 package com.umcs;
 
-public class EventType {
+public enum  EventType {
+    STAN_NORMALNY,
+    STAN_NIENORMALNY;
 }
