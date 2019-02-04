@@ -1,5 +1,5 @@
 package com.umcs;
 
 public enum EventType {
-    ZMIANA_LICZBY
+    LICZBA_DODATNIA, LICZBA_UJEMNA
 }

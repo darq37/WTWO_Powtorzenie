@@ -15,6 +15,10 @@ public class ObserwowanyObiekt {
 
     public void setState(int state) {
         this.state = state;
-        eventBroker.notifyEveryone(new Event(EventType.ZMIANA_LICZBY, this.state));
+        eventBroker.notify(
+                new Event(state >= 0
+                        ? EventType.LICZBA_DODATNIA
+                        : EventType.LICZBA_UJEMNA, this.state)
+        );
     }
 }

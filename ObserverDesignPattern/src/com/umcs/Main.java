@@ -9,9 +9,9 @@ public class Main {
         Obserwator hex = new HexObserver();
         Obserwator oct = new OctObserver();
         Obserwator bin = new BinaryObserver();
-        eventBroker.addObserwator(hex);
-        eventBroker.addObserwator(oct);
-        eventBroker.addObserwator(bin);
+        eventBroker.addObserwator(EventType.LICZBA_DODATNIA, hex);
+        eventBroker.addObserwator(EventType.LICZBA_UJEMNA, oct);
+        eventBroker.addObserwator(EventType.LICZBA_UJEMNA, bin);
         ObserwowanyObiekt obiekt = new ObserwowanyObiekt(eventBroker);
 
         Scanner sc = new Scanner(System.in);
