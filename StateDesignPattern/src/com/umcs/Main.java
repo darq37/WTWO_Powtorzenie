@@ -8,6 +8,5 @@ public class Main {
         for (int i = 0; i < 50; i++) {
             cnt.doSomething();
         }
-        System.out.println(cnt.getCount());
     }
 }

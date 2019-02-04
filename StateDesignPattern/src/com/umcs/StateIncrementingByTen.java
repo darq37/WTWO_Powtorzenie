@@ -5,6 +5,8 @@ public class StateIncrementingByTen implements State {
     public void handle(Context context) {
         context.setCount(context.getCount() + 10);
         System.out.println("[STATE_10] count: " + context.getCount());
-        context.setCurrentState(new StateIncrementingByOne());
+        if (context.getCount() >= 100) {
+            context.setCurrentState(new StateIncrementingByHundred());
+        }
     }
 }
