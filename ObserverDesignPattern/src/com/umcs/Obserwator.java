@@ -1,6 +1,5 @@
 package com.umcs;
 
 public interface Obserwator {
-
-    void aktualizuj();
+    void aktualizuj(Event even);
 }
